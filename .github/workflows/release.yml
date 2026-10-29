@@ -1,0 +1,54 @@
+name: Release Mac app
+on:
+  push:
+    branches: ['main']
+    tags: ['v*.*.*']
+    paths: ['package.json']
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: study-tool-release
+  cancel-in-progress: false
+jobs:
+  release:
+    runs-on: macos-latest
+    timeout-minutes: 60
+    permissions:
+      contents: write
+    env:
+      ELECTRON_SKIP_BINARY_DOWNLOAD: '1'
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '24'
+          package-manager-cache: false
+      - name: Validate version and release destination
+        env:
+          REPOSITORY_VISIBILITY: ${{ github.event.repository.visibility }}
+          REPOSITORY_DEFAULT_BRANCH: ${{ github.event.repository.default_branch }}
+        run: node scripts/ci-release-plan.mjs
+      - run: npm ci --no-audit --no-fund
+      - run: npm test
+      - name: Prepare optional Apple signing
+        env:
+          APPLE_CERTIFICATE_P12: ${{ secrets.APPLE_CERTIFICATE_P12 }}
+          APPLE_CERTIFICATE_PASSWORD: ${{ secrets.APPLE_CERTIFICATE_PASSWORD }}
+          STUDY_TOOL_SIGN_IDENTITY: ${{ secrets.APPLE_SIGNING_IDENTITY }}
+          APPLE_API_KEY_P8: ${{ secrets.APPLE_API_KEY_P8 }}
+          APPLE_API_KEY_ID: ${{ secrets.APPLE_API_KEY_ID }}
+          APPLE_API_ISSUER: ${{ secrets.APPLE_API_ISSUER }}
+          REQUIRE_SIGNED_RELEASES: ${{ vars.REQUIRE_SIGNED_RELEASES }}
+        run: node scripts/ci-prepare-signing.mjs
+      - name: Build both Mac editions and verify archives
+        run: node scripts/ci-build-release.mjs
+      - name: Publish complete release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: node scripts/ci-publish-release.mjs
+      - name: Remove temporary signing files
+        if: always()
+        run: node scripts/ci-clean-signing.mjs

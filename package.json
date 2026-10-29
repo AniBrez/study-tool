@@ -1,0 +1,29 @@
+{
+  "name": "study-tool-desktop",
+  "productName": "Study Tool",
+  "version": "1.3.0",
+  "description": "Offline mathematical flowcharts and LaTeX statement/proof flashcards.",
+  "author": "Study Tool",
+  "license": "UNLICENSED",
+  "private": true,
+  "type": "module",
+  "main": "desktop/main.cjs",
+  "engines": {
+    "node": ">=22.13.0"
+  },
+  "scripts": {
+    "start": "electron-forge start",
+    "package": "electron-forge package",
+    "make": "electron-forge make",
+    "test": "node --test tests/*.test.mjs",
+    "configure:updates": "node scripts/configure-updates.mjs",
+    "release:mac": "node scripts/release-mac.mjs"
+  },
+  "devDependencies": {
+    "electron": "44.8.0",
+    "@electron-forge/cli": "8.0.1",
+    "@electron-forge/maker-dmg": "8.0.1",
+    "@electron-forge/maker-zip": "8.0.1",
+    "jsdom": "30.1.3"
+  }
+}

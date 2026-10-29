@@ -1,0 +1,38 @@
+{
+  "reference": "diagram-20261016-6.png",
+  "color": "#bd10e0",
+  "canvas": [
+    1024,
+    1024
+  ],
+  "box": [
+    128,
+    128,
+    896,
+    896
+  ],
+  "whiteInterior": [
+    136,
+    304,
+    888,
+    888
+  ],
+  "glyphCenter": [
+    512,
+    596
+  ],
+  "glyphHeight": 350,
+  "glyphSource": "Vector trace of the supplied reference",
+  "character": "\ud835\udd4a",
+  "latex": "\\mathbb{S}",
+  "visibleGlyphBounds": [
+    398,
+    423,
+    626,
+    768
+  ],
+  "visibleGlyphCenter": [
+    512.0,
+    595.5
+  ]
+}

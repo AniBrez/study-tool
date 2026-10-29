@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#ffffff">
+  <meta name="description" content="Build mathematical flowcharts and study their statements and proofs with LaTeX flashcards.">
+  <title>Study Tool</title>
+  <link rel="icon" href="./favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./vendor/katex.min.css">
+  <link rel="stylesheet" href="./styles.css">
+  <script src="./vendor/katex.min.js" defer></script>
+  <script type="module" src="./app.mjs"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <button class="brand" data-action="home">Study Tool</button>
+      <span id="breadcrumb-topic" class="breadcrumb-topic" hidden></span>
+    </nav>
+  </header>
+  <main id="main" tabindex="-1"></main>
+  <footer class="site-footer">
+    <span id="save-status" role="status">Saved in this browser</span>
+    <nav aria-label="Workspace tools">
+      <button data-action="export">Export</button>
+      <span aria-hidden="true">·</span>
+      <button data-action="import">Import</button>
+      <span aria-hidden="true">·</span>
+      <button data-action="settings">Settings</button>
+      <span aria-hidden="true">·</span>
+      <button data-action="help">Guide</button>
+    </nav>
+  </footer>
+  <dialog id="modal" aria-label="Study Tool dialog"></dialog>
+  <input id="import-file" type="file" accept="application/json,.json" hidden>
+  <div id="announcement" class="sr-only" aria-live="polite"></div>
+</body>
+</html>

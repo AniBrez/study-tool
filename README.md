@@ -4,6 +4,15 @@ An offline mathematics study app for macOS: arrange definitions, theorems, lemma
 
 The complete application is in this repository: the web interface and bundled KaTeX/fonts, Electron desktop shell, icon sources, storage and updater code, tests, and Mac release workflow. No server is required for studying.
 
+## Download for Mac
+
+[Study Tool 1.3.0](https://github.com/AniBrez/study-tool/releases/tag/v1.3.0) is available for macOS 13 or later:
+
+- [Apple Silicon (M-series)](https://github.com/AniBrez/study-tool/releases/download/v1.3.0/Study-Tool-1.3.0-manual-arm64.zip)
+- [Intel](https://github.com/AniBrez/study-tool/releases/download/v1.3.0/Study-Tool-1.3.0-manual-x64.zip)
+
+Quit Study Tool, unzip the appropriate download, and replace `Study Tool.app` in Applications. Keep its Application Support folder; saved flowcharts load automatically. Install this GitHub-aware edition manually once, then use `https://github.com/AniBrez/study-tool` under **Updates → Update source** if needed. Online checks work now; this unsigned edition offers manual installation. See [START-HERE.md](START-HERE.md) for the Mac launch steps.
+
 ## Run locally
 
 Install Node.js 24, then run:

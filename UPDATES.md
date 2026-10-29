@@ -51,7 +51,7 @@ Install the first Developer ID signed edition **manually once**. An unsigned/ad-
 4. Pushing the new version in `package.json` to `main` starts the release automatically. Matching version tags and manual runs on the default branch are also supported; use one release trigger per version.
 5. Check the workflow result and published assets. Existing app installations discover the stable release at their next online check. Automatic checks occur shortly after startup and every six hours when enabled. Source pushes that do not change `package.json` do not create an app update. If you change dependencies or scripts in `package.json`, increment the app version before releasing.
 
-Release versions are immutable after publication; increment the version instead of replacing a published version. A failed draft for the same exact commit can be retried.
+Release versions are immutable after publication; increment the version instead of replacing a published version. A failed draft for the same exact commit can be retried. An empty unpublished draft can also be reused for a corrected source commit. A draft that already contains downloads from a different commit cannot be retargeted automatically. Drafts are found through the authenticated release list and tracked by release ID; the published-tag endpoint is not used for draft lookup.
 
 ## Workspace protection
 

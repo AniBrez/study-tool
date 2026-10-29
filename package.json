@@ -17,7 +17,8 @@
     "make": "electron-forge make",
     "test": "node --test tests/*.test.mjs",
     "configure:updates": "node scripts/configure-updates.mjs",
-    "release:mac": "node scripts/release-mac.mjs"
+    "release:mac": "node scripts/release-mac.mjs",
+    "release:publish": "node scripts/ci-publish-release.mjs"
   },
   "devDependencies": {
     "electron": "44.8.0",

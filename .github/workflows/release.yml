@@ -48,7 +48,7 @@ jobs:
       - name: Publish complete release
         env:
           GH_TOKEN: ${{ github.token }}
-        run: node scripts/ci-publish-release.mjs
+        run: npm run release:publish
       - name: Remove temporary signing files
         if: always()
         run: node scripts/ci-clean-signing.mjs

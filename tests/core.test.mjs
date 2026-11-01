@@ -64,6 +64,31 @@ test('new cards snap to the grid and graph paths contain finite coordinates', ()
   assert.equal(a.x,120);assert.equal(a.y,260);
   assert.ok(!/NaN|Infinity/.test(edgePath(a,b)));
 });
+test('connections have one smooth halfway vertex and keep arrow direction on short links', () => {
+  const at = (points,t) => [0,1].map(axis => (1-t)**3*points[0][axis]+3*(1-t)**2*t*points[1][axis]+3*(1-t)*t*t*points[2][axis]+t**3*points[3][axis]);
+  const fixtures = [
+    [{type:'lemma',x:100,y:100},{type:'theorem',x:600,y:300},[[317,157],[458,157],[458,357],[599,357]]],
+    [{type:'title',x:100,y:100},{type:'theorem',x:600,y:300},[[230,147],[230,223],[708,223],[708,299]]],
+    [{type:'lemma',x:100,y:100},{type:'lemma',x:340,y:100},[[317,157],[328,157],[328,157],[339,157]]],
+    [{type:'lemma',x:100,y:100},{type:'lemma',x:100,y:240},[[208,215],[208,227],[208,227],[208,239]]]
+  ];
+  for(const [from,to,curve] of fixtures) for(const reverse of [false,true]) {
+    const expected=reverse?[...curve].reverse():curve;
+    const path=edgePath(reverse?to:from,reverse?from:to);
+    assert.equal((path.match(/C/g)||[]).length,2,'Only one interior vertex receives a head.');
+    const values=path.match(/-?\d+(?:\.\d+)?/g).map(Number);
+    const points=Array.from({length:7},(_,i)=>values.slice(2*i,2*i+2));
+    assert.deepEqual(points[3],at(expected,.5),'The marker sits halfway between the endpoints.');
+    for(const t of [0,.125,.25,.5,.75,.875,1]) {
+      const actual=t<=.5?at(points.slice(0,4),t*2):at(points.slice(3),t*2-1);
+      const wanted=at(expected,t);
+      for(const axis of [0,1]) assert.ok(Math.abs(actual[axis]-wanted[axis])<1e-9,'Splitting preserves the curve.');
+    }
+    const tangent=points[4].map((v,i)=>v-points[3][i]);
+    assert.ok(tangent.reduce((sum,v,i)=>sum+v*(expected[3][i]-expected[0][i]),0)>0,'Forward heads follow the connection, even on short links.');
+    for(const axis of [0,1]) assert.equal(points[3][axis]-points[2][axis],tangent[axis],'The midpoint tangent stays smooth.');
+  }
+});
 test('local asset references resolve and runtime has no remote dependency', () => {
   const html=readFileSync(new URL('../dist/index.html',import.meta.url),'utf8');
   for(const match of html.matchAll(/(?:src|href)="(\.\/[^"#]+)"/g)) assert.ok(existsSync(new URL('../dist/'+match[1].slice(2),import.meta.url)),match[1]);

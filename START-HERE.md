@@ -2,7 +2,13 @@
 
 An offline desktop edition of your mathematics flowchart and flashcard tool, preserving the original LaTeX-style design, with plain lines and optional mathematical arrows.
 
-## Version 1.3.0
+## Version 1.3.1
+
+All ordinary and double-line arrowheads now appear in the middle of connecting lines. Both heads of a two-way connection sit together at the centre. This applies in Edit and Display, including curved connections and while cards move. Short connections keep the intended arrow direction.
+
+Install the new app from GitHub Releases or use **Updates → Check for updates** to find the download for your Mac. The saved workspace format and location remain the same.
+
+### Features from version 1.3.0
 
 GitHub Releases can now supply online updates. The project includes workflows to test source changes and build/publish both Mac editions from version tags. The repository URL is bundled by the release workflow. See **UPDATES.md** for setup and Apple signing. Unsigned editions discover releases and offer manual downloads; automatic installation requires a Developer ID signed app. Existing installations through 1.2.0 must install this GitHub-aware edition manually once.
 

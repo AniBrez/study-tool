@@ -41,6 +41,17 @@ export function removeNode(topic, id) {
   topic.edges = topic.edges.filter(e => e.from !== id && e.to !== id);
 }
 
+// Split the cubic at t = 1/2 without changing its route. Its symmetric control
+// points make this vertex the halfway point along the line, including curves.
+function midpointCurve(sx, sy, cx, cy, dx, dy, ex, ey) {
+  const ax = (sx + cx) / 2, ay = (sy + cy) / 2;
+  const bx = (cx + dx) / 2, by = (cy + dy) / 2;
+  const zx = (dx + ex) / 2, zy = (dy + ey) / 2;
+  const lx = (ax + bx) / 2, ly = (ay + by) / 2;
+  const rx = (bx + zx) / 2, ry = (by + zy) / 2;
+  return `M ${sx} ${sy} C ${ax} ${ay}, ${lx} ${ly}, ${(lx + rx) / 2} ${(ly + ry) / 2} C ${rx} ${ry}, ${zx} ${zy}, ${ex} ${ey}`;
+}
+
 export function edgePath(from, to, {startInset = 0, endInset = 0} = {}) {
   const a = bounds(from), b = bounds(to);
   const ax = from.x + a.width / 2, ay = from.y + a.height / 2;
@@ -52,14 +63,14 @@ export function edgePath(from, to, {startInset = 0, endInset = 0} = {}) {
     const sign = dy >= 0 ? 1 : -1;
     sx = ax; sy = ay + sign * (a.height / 2 + 1 + startInset);
     ex = bx; ey = by - sign * (b.height / 2 + 1 + endInset);
-    const bend = Math.max(34, Math.abs(ey - sy) * .5);
-    return `M ${sx} ${sy} C ${sx} ${sy + sign * bend}, ${ex} ${ey - sign * bend}, ${ex} ${ey}`;
+    const bend = Math.abs(ey - sy) * .5;
+    return midpointCurve(sx, sy, sx, sy + sign * bend, ex, ey - sign * bend, ex, ey);
   }
   const sign = dx >= 0 ? 1 : -1;
   sx = ax + sign * (a.width / 2 + 1 + startInset); sy = ay;
   ex = bx - sign * (b.width / 2 + 1 + endInset); ey = by;
-  const bend = Math.max(34, Math.abs(ex - sx) * .5);
-  return `M ${sx} ${sy} C ${sx + sign * bend} ${sy}, ${ex - sign * bend} ${ey}, ${ex} ${ey}`;
+  const bend = Math.abs(ex - sx) * .5;
+  return midpointCurve(sx, sy, sx + sign * bend, sy, ex - sign * bend, ey, ex, ey);
 }
 
 function text(value, label, max = 100000) {

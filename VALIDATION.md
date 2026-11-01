@@ -1,4 +1,13 @@
-# Study Tool 1.3.0 validation
+# Study Tool validation
+
+## Version 1.3.1
+
+- All **72 automated checks** passed locally. New regression coverage checks the halfway vertex, smooth tangents, forward/reverse routing, mixed card dimensions and short horizontal/vertical connections. It verifies that splitting normal curves preserves their shape.
+- Interface checks cover all seven connection choices, centred ordinary/implication/equivalence heads, selection colour, Edit/Display, dragging, persistence and undo/redo. Existing storage, recovery and updater checks also pass.
+- Rendered SVG output from the interface was visually inspected for all seven choices, straight/curved connections and selected equivalence arrows. All six arrow styles use a midpoint marker and no endpoint markers.
+- The Mac release workflow reruns the full suite, builds both architectures and verifies uploaded archive sizes and SHA-256 digests before publication.
+
+## Version 1.3.0
 
 - All **70 automated checks** passed locally and in GitHub Actions on Linux and macOS. They cover LaTeX rendering, lattice snapping, every connection style, lasso/group movement, corollary proofs, shared definitions, save/import/undo, migration, recovery, update checkpoints and close/restart coordination.
 - The complete Mac release workflow passed: https://github.com/AniBrez/study-tool/actions/runs/40926245409. Published release: https://github.com/AniBrez/study-tool/releases/tag/v1.3.0. Both downloads were built from source commit `7147cf2bc011650483decf51e7267ce682695a9f`.

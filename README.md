@@ -6,10 +6,12 @@ The complete application is in this repository: the web interface and bundled Ka
 
 ## Download for Mac
 
-[Study Tool 1.3.0](https://github.com/AniBrez/study-tool/releases/tag/v1.3.0) is available for macOS 13 or later:
+[Study Tool 1.3.1](https://github.com/AniBrez/study-tool/releases/tag/v1.3.1) is available for macOS 13 or later:
 
-- [Apple Silicon (M-series)](https://github.com/AniBrez/study-tool/releases/download/v1.3.0/Study-Tool-1.3.0-manual-arm64.zip)
-- [Intel](https://github.com/AniBrez/study-tool/releases/download/v1.3.0/Study-Tool-1.3.0-manual-x64.zip)
+- [Apple Silicon (M-series)](https://github.com/AniBrez/study-tool/releases/download/v1.3.1/Study-Tool-1.3.1-manual-arm64.zip)
+- [Intel](https://github.com/AniBrez/study-tool/releases/download/v1.3.1/Study-Tool-1.3.1-manual-x64.zip)
+
+Version 1.3.1 places ordinary and double-line arrowheads in the middle of each connection. Two-way heads sit together at the centre. Arrow direction and position follow the line as cards move.
 
 Quit Study Tool, unzip the appropriate download, and replace `Study Tool.app` in Applications. Keep its Application Support folder; saved flowcharts load automatically. Install this GitHub-aware edition manually once, then use `https://github.com/AniBrez/study-tool` under **Updates → Update source** if needed. Online checks work now; this unsigned edition offers manual installation. See [START-HERE.md](START-HERE.md) for the Mac launch steps.
 

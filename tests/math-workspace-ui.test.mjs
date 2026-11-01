@@ -77,16 +77,42 @@ test('lattice, connection styles, corollary proofs and shared definitions work t
       change('#connection-style',style);const edge=q(`.edge[data-id="${id}"]`);
       assert.equal(edge.dataset.style,style);assert.equal(state().topics[0].edges.find(e=>e.id===id).style,style);
       const path=edge.querySelector(style.startsWith('implication')?'.edge-heads':'.edge-line');
-      assert.equal(!!path.getAttribute('marker-start'),style.endsWith('backward')||style.endsWith('both'));
-      assert.equal(!!path.getAttribute('marker-end'),style.endsWith('forward')||style.endsWith('both'));
+      assert.equal(path.getAttribute('marker-start'),null);
+      assert.equal(path.getAttribute('marker-end'),null);
+      assert.equal(path.getAttribute('marker-mid'),style==='line'?null:`url(#${style}-head-selected)`);
+      if(style!=='line') {
+        const marker=q(`#${style}-head-selected`);
+        assert.equal(marker.getAttribute('refX'),'0');
+        assert.equal(marker.getAttribute('orient'),'auto');
+        assert.equal(marker.querySelector('path').getAttribute('stroke'),'#c30ce7');
+        assert.equal(edge.querySelector('.edge-line').getAttribute('d'),path.getAttribute('d'));
+      }
       assert.equal(!!edge.querySelector('.edge-gap'),style.startsWith('implication'));
     }
     click('[data-action=undo]');assert.equal(state().topics[0].edges.find(e=>e.id===id).style,'implication-backward');
     click('[data-action=redo]');assert.equal(state().topics[0].edges.find(e=>e.id===id).style,'implication-both');
     click('[data-action=connect]');change('#connection-style','arrow-backward');click(`.flow-node[data-id="${corollary.id}"]`);click('.flow-node[data-id=fa-ubp]');
     const created=state().topics[0].edges.at(-1);assert.equal(created.from,corollary.id);assert.equal(created.style,'arrow-backward');
-    click('[data-action=mode]');assert.ok(q(`.edge[data-id="${created.id}"] .edge-line`).getAttribute('marker-start'));
+    click('[data-action=mode]');assert.equal(q(`.edge[data-id="${created.id}"] .edge-line`).getAttribute('marker-mid'),'url(#arrow-backward-head)');
     assert.equal(doc.querySelector('.edge-hit'),null,'Display mode keeps connection styles without editing hit targets.');
     assert.deepEqual(validateWorkspace(JSON.parse(JSON.stringify(state()))),state());
+  });
+  await t.test('midpoint arrowheads follow card movement, undo and display changes without changing saved styles',()=>{
+    click('[data-action=mode]');
+    const before=state(),edge=before.topics[0].edges.at(-1);
+    const selector=`.edge[data-id="${edge.id}"] .edge-line`;
+    const original=q(selector).getAttribute('d');
+    const node=before.topics[0].nodes.find(n=>n.id===edge.to);
+    pointer(q(`.flow-node[data-id="${node.id}"]`),'pointerdown',worldPoint(node.x+70,node.y+50));
+    pointer(w,'pointermove',worldPoint(node.x+190,node.y+130));
+    pointer(w,'pointerup',worldPoint(node.x+190,node.y+130));
+    const moved=q(selector).getAttribute('d');
+    assert.notEqual(moved,original);
+    assert.equal(q(selector).getAttribute('marker-mid'),'url(#arrow-backward-head)');
+    assert.deepEqual(state().topics[0].edges,before.topics[0].edges);
+    click('[data-action=undo]');assert.deepEqual(state(),before);assert.equal(q(selector).getAttribute('d'),original);
+    click('[data-action=redo]');assert.equal(q(selector).getAttribute('d'),moved);
+    click('[data-action=mode]');assert.equal(q(selector).getAttribute('marker-mid'),'url(#arrow-backward-head)');
+    assert.equal(doc.querySelector('.edges [marker-start], .edges [marker-end]'),null);
   });
 });

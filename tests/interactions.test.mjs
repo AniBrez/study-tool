@@ -46,7 +46,7 @@ test('complete topic, flowchart, flashcard, persistence, and recovery workflow',
     for(const id of ['sl-risk','sl-remark']){
       click(`.flow-node[data-id=${id}]`);assert.equal(doc.querySelector('[data-action=flip]'),null);click('[data-action=close-dialog]');
     }
-    click('.flow-node[data-id=sl-title]');assert.equal(q('#modal').open,false);
+    click('.flow-node[data-id=sl-title]');assert.equal(q('#modal').open,true);assert.equal(q('.flash-kind').textContent,'Section assumptions');assert.equal(doc.querySelector('[data-action=flip]'),null);click('[data-action=close-dialog]');
   });
   await t.test('edit includes all six toolbox types; cancel leaves no new card',()=>{
     click('[data-action=mode]');assert.equal(doc.querySelectorAll('.tool').length,6);

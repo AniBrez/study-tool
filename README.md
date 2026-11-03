@@ -6,12 +6,12 @@ The complete application is in this repository: the web interface and bundled Ka
 
 ## Download for Mac
 
-[Study Tool 1.3.1](https://github.com/AniBrez/study-tool/releases/tag/v1.3.1) is available for macOS 13 or later:
+[Study Tool 1.4.0](https://github.com/AniBrez/study-tool/releases/tag/v1.4.0) is available for macOS 13 or later:
 
-- [Apple Silicon (M-series)](https://github.com/AniBrez/study-tool/releases/download/v1.3.1/Study-Tool-1.3.1-manual-arm64.zip)
-- [Intel](https://github.com/AniBrez/study-tool/releases/download/v1.3.1/Study-Tool-1.3.1-manual-x64.zip)
+- [Apple Silicon (M-series)](https://github.com/AniBrez/study-tool/releases/download/v1.4.0/Study-Tool-1.4.0-manual-arm64.zip)
+- [Intel](https://github.com/AniBrez/study-tool/releases/download/v1.4.0/Study-Tool-1.4.0-manual-x64.zip)
 
-Version 1.3.1 places ordinary and double-line arrowheads in the middle of each connection. Two-way heads sit together at the centre. Arrow direction and position follow the line as cards move.
+Version 1.4.0 adds optional LaTeX assumptions to section titles. Edit a Title to enter shared hypotheses for the blocks under it; open the title in Display to read or edit them. Centred connection arrows from version 1.3.1 are retained.
 
 Quit Study Tool, unzip the appropriate download, and replace `Study Tool.app` in Applications. Keep its Application Support folder; saved flowcharts load automatically. Install this GitHub-aware edition manually once, then use `https://github.com/AniBrez/study-tool` under **Updates → Update source** if needed. Online checks work now; this unsigned edition offers manual installation. See [START-HERE.md](START-HERE.md) for the Mac launch steps.
 
@@ -55,3 +55,7 @@ For installation, data locations, backup recovery, features and the unsigned Mac
 | `.github/workflows/` | Tests and Mac release automation |
 
 Third-party licenses remain with their bundled assets. Project code retains its existing `UNLICENSED` designation.
+
+## Title assumptions
+
+Titles can hold optional assumptions shared by the definitions, theorems, lemmas and other blocks under that title. In Edit, click a title or add a new Title, enter the assumptions beneath the title, compile the LaTeX preview, then save. In Display, click the title to read its assumptions; “Edit assumptions” changes them. The canvas keeps the existing title design. Assumptions use the title’s existing statement field, so they are retained by saving, undo/redo and JSON export/import without a workspace format change.

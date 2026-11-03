@@ -51,7 +51,16 @@ test('desktop UI writes real files and waits for saving before closing',async t=
   input('#update-base-url','https://updates.test/releases');q('#update-settings-form').dispatchEvent(new w.Event('submit',{bubbles:true,cancelable:true}));await wait();
   click('[data-action=check-updates]');await wait();assert.ok(q('[data-action=open-update-download]'));
   assert.equal(doc.querySelector('[data-action=install-update]'),null);click('[data-action=close-dialog]');
-  click('[data-action=topic][data-id=statistical-learning]');click('[data-action=mode]');click('.tool[data-type=theorem]');
+  click('[data-action=topic][data-id=statistical-learning]');
+  click('.flow-node[data-id=sl-title]');click('[data-action=edit-card]');
+  input('#card-source',String.raw`Throughout this subsection, $\\R$ is the sample space.`);
+  await beforeClose();assert.equal(closeOptions.draftPending,true,'Unsaved title assumptions are guarded before closing.');closed=false;
+  input('#card-source',String.raw`Throughout this subsection, $\R$ is the sample space.`);
+  q('#card-form').dispatchEvent(new w.Event('submit',{bubbles:true,cancelable:true}));await wait();
+  const titleAssumptions=(await new WorkspaceStore(dir).load()).workspace.topics[1].nodes.find(n=>n.id==='sl-title').statement;
+  assert.equal(titleAssumptions,String.raw`Throughout this subsection, $\R$ is the sample space.`);
+  click('.flow-node[data-id=sl-title]');assert.match(q('.flash-content').textContent,/sample space/);assert.ok(q('.flash-content .katex'));click('[data-action=close-dialog]');
+  click('[data-action=mode]');click('.tool[data-type=theorem]');
   input('#card-title','Offline theorem');input('#card-source','A statement $x=y$.');
   menuAction('updates');await wait();assert.equal(q('#card-title').value,'Offline theorem','The update menu never replaces an open card draft.');
   click('[data-action=editor-side][data-side=proof]');input('#card-source','A proof $x-y=0$.');
@@ -61,6 +70,7 @@ test('desktop UI writes real files and waits for saving before closing',async t=
   const card=saved.topics[1].nodes.find(n=>n.title==='Offline theorem');assert.ok(card);assert.match(card.proof,/x-y/);
   assert.equal(localStorage.getItem('study-tool.workspace.v1'),null,'Desktop saves use files rather than browser storage.');
   menuAction('export');await wait();assert.ok(exported.topics[1].nodes.some(n=>n.id===card.id));
+  assert.equal(exported.topics[1].nodes.find(n=>n.id==='sl-title').statement,titleAssumptions);
   click('[data-action=storage-details]');assert.match(q('#modal').textContent,/workspace.json/);click('[data-action=show-files]');await wait();assert.ok(shown);click('[data-action=close-dialog]');
   fail=true;click(`[data-action=card][data-id="${card.id}"]`);input('#card-title','An unsaved latest edit');q('#card-form').dispatchEvent(new w.Event('submit',{bubbles:true,cancelable:true}));
   await new Promise(r=>setImmediate(r));assert.match(q('#save-status').textContent,/Could not save/);

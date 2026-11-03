@@ -1,9 +1,9 @@
-Study Tool 1.3.1
+Study Tool 1.4.0
 
-All arrowheads now appear in the middle of connecting lines, keeping them clear of card endpoints. This covers ordinary arrows, double-line implication arrows and equivalence connections, pointing forward, backward or both ways. Two-way heads sit together at the centre.
+Section titles now open an assumptions card in Display. Add optional shared hypotheses for the definitions, theorems, lemmas, corollaries and remarks under a title, using the same text, LaTeX, lists and compiled preview as other cards.
 
-Heads follow the tangent halfway along curved lines and stay in place as you move cards, pan or zoom. Selected connections retain their highlight. Short connections keep their intended direction. Plain lines remain available.
+In Edit, click an existing title or add a new Title, enter its assumptions and save. In Display, click the title to read them or choose Edit assumptions. Titles without assumptions remain supported. Title boxes keep the original canvas design and dimensions.
 
-The change applies to existing connections automatically in both Edit and Display. Saved flowcharts, connection styles, LaTeX settings, backups, workspace format and save location remain compatible.
+Assumptions persist in the existing workspace format and survive reopening, JSON export/import, undo and redo. Canceling an edit preserves saved assumptions. Unsaved title drafts receive the desktop close protection used by other cards.
 
-All 72 automated checks pass, including midpoint geometry, every connection style, movement, undo, persistence, storage and update safeguards. Both Apple Silicon and Intel Mac editions are built and verified by the release workflow.
+All 73 automated checks pass locally, including title assumptions, desktop file saving, reloading, compatibility, storage recovery and updater safeguards.

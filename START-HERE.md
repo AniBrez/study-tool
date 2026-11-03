@@ -2,6 +2,10 @@
 
 An offline desktop edition of your mathematics flowchart and flashcard tool, preserving the original LaTeX-style design, with plain lines and optional mathematical arrows.
 
+## Version 1.4.0
+
+Section titles can contain optional assumptions for all the blocks under them. In Edit, open or create a Title, write the shared assumptions and save. LaTeX, lists, shared mathematical definitions and Compile preview work as on other cards. In Display, click the title to read them or choose Edit assumptions. They save with your existing flowchart and are included in JSON exports and undo/redo.
+
 ## Version 1.3.1
 
 All ordinary and double-line arrowheads now appear in the middle of connecting lines. Both heads of a two-way connection sit together at the centre. This applies in Edit and Display, including curved connections and while cards move. Short connections keep the intended arrow direction.

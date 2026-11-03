@@ -1,5 +1,12 @@
 # Study Tool validation
 
+## Version 1.4.0
+
+- All **73 automated checks** passed locally. Title coverage checks existing content, empty titles, LaTeX preview and lists, draft retention through syntax help, cancellation, separate subsections, clearing, undo/redo, JSON round trips and page reopening.
+- Desktop interface checks verify title assumptions are saved to the real workspace file, included in export and protected as unsaved drafts when closing.
+- The website passed all **22 checks** and browser QA: edit, compile, save, reload and reopen a title with mathematical text and a list. The popup uses the existing typography and borders; title boxes keep their dimensions.
+- The workspace schema and storage locations are unchanged. Mac build and release verification run in GitHub Actions. Native Mac launch and signed automatic installation are not verified locally.
+
 ## Version 1.3.1
 
 - All **72 automated checks** passed locally. New regression coverage checks the halfway vertex, smooth tangents, forward/reverse routing, mixed card dimensions and short horizontal/vertical connections. It verifies that splitting normal curves preserves their shape.
